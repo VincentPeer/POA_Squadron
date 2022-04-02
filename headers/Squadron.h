@@ -12,14 +12,13 @@
 class Squadron {
 
    class ShipList {
+   public:
 
       struct Link {
          const Ship *ship;
          Link *next;
          Link *prev;
       };
-
-   public:
 
       Link beforeFirst; // todo voir protegers variable
       size_t size;

@@ -52,9 +52,8 @@ Ship &Squadron::operator[](size_t i) {
 
 unsigned Squadron::getConsumption(unsigned int distance, unsigned int speed) {
    unsigned consumed = 0;
-
    for (size_t i = 0; i < ships.size; ++i) {
-      consumed += ships.get(i)->fuelConsumed(speed, distance); // todo pas efficace pour une linked list
+      consumed += ships.get(i)->getConsumption(speed, distance); // todo pas efficace pour une linked list
    }
    return consumed;
 }
