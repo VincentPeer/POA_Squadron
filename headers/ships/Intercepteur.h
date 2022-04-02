@@ -1,0 +1,8 @@
+//
+// Created by dimde on 4/2/2022.
+//
+
+#ifndef POA_SQUADRON_INTERCEPTEUR_H
+#define POA_SQUADRON_INTERCEPTEUR_H
+
+#endif //POA_SQUADRON_INTERCEPTEUR_H

@@ -7,7 +7,7 @@
 
 #include <string>
 #include <ostream>
-#include "Ship.h"
+#include "ships/Ship.h"
 
 class Squadron {
     std::string name;
