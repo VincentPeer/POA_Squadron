@@ -7,9 +7,13 @@
 #include <utility>
 
 using namespace std;
-Squadron::Squadron(std::string  name) : name(std::move(name)), ships(), chief(nullptr){}
+Squadron::Squadron(std::string  name)
+   : name(std::move(name)), ships(), leader(nullptr){
+}
 
-Squadron::Squadron(const Squadron &squadron) :name(squadron.name), ships(squadron.ships), chief(nullptr){}
+Squadron::Squadron(const Squadron &squadron)
+   : name(squadron.name), ships(squadron.ships), leader(nullptr){
+}
 
 Squadron* Squadron::joinDynamic(const Ship& ship) {
    Squadron* newSquad = new Squadron(*this);
@@ -17,25 +21,33 @@ Squadron* Squadron::joinDynamic(const Ship& ship) {
    return newSquad;
 }
 
-Squadron &Squadron::join(const Ship &ship) {
-   ships.add(&ship);
+Squadron &Squadron::join(const Ship& ship) {
+   ships.add((Ship*) &ship);
    return *this;
 }
 
-Squadron *Squadron::leaveDynamic(const Ship &ship) {
+Squadron *Squadron::leaveDynamic(const Ship& ship) {
    Squadron* newSquad = new Squadron(*this);
    newSquad->leave(ship);
    return newSquad;
 }
 
-Squadron &Squadron::leave(const Ship &ship) {
-   ships.del(&ship);
+Squadron &Squadron::leave(const Ship& ship) {
+   ships.del((Ship*) &ship);
    return *this;
 }
 
 Ship &Squadron::get(size_t i) {
-   return *ships.get(i);
+   Link* l = &ships.beforeFirst;
+   if (i >= ships.size)
+      throw std::runtime_error("Argument out of range");
+
+   for (size_t j = 0; j <= i; ++j)
+      l = l->next;
+
+   return *l->ship;
 }
+
 
 Squadron &Squadron::operator+=(const Ship &ship) {
    join(ship);
@@ -44,7 +56,8 @@ Squadron &Squadron::operator+=(const Ship &ship) {
 
 Squadron &Squadron::operator-=(const Ship &ship) {
    leave(ship);
-   return *this;}
+   return *this;
+}
 
 Ship &Squadron::operator[](size_t i) {
    return get(i);
@@ -52,17 +65,26 @@ Ship &Squadron::operator[](size_t i) {
 
 unsigned Squadron::getConsumption(unsigned int distance, unsigned int speed) {
    unsigned consumed = 0;
+   Link* l = &ships.beforeFirst;
+
    for (size_t i = 0; i < ships.size; ++i) {
-      consumed += ships.get(i)->getConsumption(speed, distance); // todo pas efficace pour une linked list
+      l = l->next;
+      consumed += l->ship->getConsumption(speed, distance); // todo pas efficace pour une linked list
    }
    return consumed;
 }
 
-std::ostream &Squadron::operator<<(std::ostream& os) {
-   for (size_t i = 0; i < ships.size; ++i) {
-     os << ships.get(i) << endl; // todo pas efficace pour une linked list
-   }
+void Squadron::setLeader(const Ship& leader) {
+   this->leader = &leader;
+}
 
+std::ostream &operator<<(ostream &os, Squadron squad) {
+   Squadron::Link* l = &squad.ships.beforeFirst;
+
+   for (size_t i = 0; i < squad.ships.size; ++i) {
+      l = l->next;
+      l->ship->toStream(os) << endl; // todo pas efficace pour une linked list
+   }
    return os;
 }
 

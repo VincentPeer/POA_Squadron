@@ -5,13 +5,15 @@
 #ifndef POA_SQUADRON_TIE_H
 #define POA_SQUADRON_TIE_H
 
-
 #include "Ship.h"
 
+#define WEIGHT 360
+#define MAX_SPEED 54
+#define MODEL "TIE/LN"
 class TIE : public Ship {
-   public:
-   unsigned getMaxSpeed();
-   unsigned getWeight();
+   unsigned getNum();
+public:
+   TIE();
 };
 
 

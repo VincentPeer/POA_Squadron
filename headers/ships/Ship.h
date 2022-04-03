@@ -6,21 +6,26 @@
 
 class Ship;
 std::ostream& operator << (std::ostream& os, const Ship& ship);
+
 class Ship {
    std::string aka;
-   std::string id;
+   std::string modelId;
+   const double WEIGHT;
+   const unsigned MAX_SPEED;
 
 protected:
-   unsigned getConsumption(unsigned speed, unsigned distance, unsigned weight) const;
-
+   std::string makeModelId(const std::string& model, unsigned num);
+   unsigned getConsumption(unsigned speed, unsigned distance, double weight) const;
+   Ship(double weight, unsigned maxSpeed, std::string modelId);
 public:
+
    virtual ~Ship();
    /* à compléter */
    virtual std::ostream& toStream(std::ostream& os) const;
-   virtual unsigned getMaxSpeed() const = 0;
-   virtual unsigned getWeight() const = 0;
+   unsigned getMaxSpeed() const;
+   double getWeight() const;
    virtual unsigned getConsumption(unsigned speed, unsigned distance) const;
-
+   void setNickname(std::string name);
 private:
    /* à compléter */
 };

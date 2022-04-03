@@ -8,11 +8,13 @@
 #include "Ship.h"
 
 class Carrier : public Ship {
-   unsigned load;
-public:
+   double load;
+   const double MAX_LOAD;
 
-   Carrier(unsigned load);
-   unsigned getConsumption(unsigned distance, unsigned speed);
+public:
+   Carrier(double weight, unsigned maxSpeed, double load, double maxLoad, std::string modelId);
+   unsigned getConsumption(unsigned speed, unsigned distance) const override;
+   double getMaxLoad() const;
 };
 
 

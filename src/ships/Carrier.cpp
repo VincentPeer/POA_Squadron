@@ -5,9 +5,21 @@
 #include <Ship.h>
 #include "Carrier.h"
 
-Carrier::Carrier(unsigned int load) : load(load) {}
+using namespace std;
 
-unsigned Carrier::getConsumption(unsigned int distance, unsigned int speed) {
-   return Ship::getConsumption(distance, speed, getWeight() + load);
+Carrier::Carrier(double weight, unsigned maxSpeed, double load, double maxLoad, string modelId) :
+   Ship(weight, maxSpeed, modelId), load(load), MAX_LOAD(maxLoad) {
+
+  if (load > maxLoad)
+     throw invalid_argument("Exceeding max load");
+  this->load = load;
+}
+
+unsigned Carrier::getConsumption(unsigned int distance, unsigned int speed) const {
+   return Ship::getConsumption(speed,distance, getWeight() + load);
+}
+
+double Carrier::getMaxLoad() const {
+   return MAX_LOAD;
 }
 

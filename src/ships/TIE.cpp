@@ -3,12 +3,9 @@
 //
 #include "TIE.h"
 
-unsigned TIE::getMaxSpeed() {
-   return 100;
-}
+TIE::TIE() : Ship(WEIGHT, MAX_SPEED, makeModelId(MODEL, getNum())) {}
 
-unsigned TIE::getWeight() {
-   return 6;
+unsigned TIE::getNum() {
+   static unsigned num;
+   return ++num;
 }
-
-#include "TIE.h"

@@ -11,31 +11,32 @@
 
 class Squadron {
 
+   struct Link {
+      Ship *ship;
+      Link *next;
+      Link *prev;
+   };
+
    class ShipList {
    public:
-
-      struct Link {
-         const Ship *ship;
-         Link *next;
-         Link *prev;
-      };
-
       Link beforeFirst; // todo voir protegers variable
       size_t size;
-      ShipList() : beforeFirst(), size(0){}
+      ShipList() : beforeFirst{nullptr, nullptr, nullptr}, size(0){}
 
       ShipList(const ShipList& list) : ShipList() {
          const Link* L = &list.beforeFirst;
-         while (L->next != nullptr)
+         while (L->next != nullptr) {
+            L = L->next;
             add(L->ship);
+         }
       }
 
-      void add(const Ship* ship) {
+      void add(Ship* ship) {
          beforeFirst.next = new Link{ship, beforeFirst.next, nullptr};
          ++size;
       }
 
-      void del(const Ship* ship) {
+      void del(Ship* ship) {
          Link* l = &beforeFirst;
          while (l->next != nullptr) {
             if (l->next->ship == ship) {
@@ -52,21 +53,11 @@ class Squadron {
          delete m;
          --size;
       }
-
-      Ship* get(size_t i) {
-         Link* l = &beforeFirst;
-         for (size_t j = 0; j <= i; ++j) {
-            if (l->next == nullptr)
-               throw std::runtime_error("Argument out of range");
-            l = l->next;
-         }
-         return const_cast<Ship *>(l->ship);
-      }
    };
 
    std::string name;
    ShipList ships;
-   Ship* chief;
+   const Ship* leader; // todo const?
 
 
 public:
@@ -79,6 +70,7 @@ public:
     Ship& get(size_t i) const;
     Ship& get(size_t i);
 
+    void setLeader(const Ship& leader);
 
     Squadron* operator+(const Ship& ship);
     Squadron& operator+=(const Ship& ship);
@@ -89,9 +81,7 @@ public:
 
     unsigned getConsumption(unsigned distance, unsigned speed);
 
-    std::ostream& operator<<(std::ostream& os);
-
-
+    friend std::ostream& operator<<(std::ostream& os, Squadron squad);
 
 };
 
