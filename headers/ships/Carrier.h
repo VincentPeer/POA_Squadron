@@ -14,7 +14,9 @@ class Carrier : public Ship {
 public:
    Carrier(double weight, unsigned maxSpeed, double load, double maxLoad, std::string modelId);
    unsigned getConsumption(unsigned speed, unsigned distance) const override;
-   double getMaxLoad() const;
+   std::ostream& toStream(std::ostream& os) const; //todo virtual??
+   double getTotalWeight() const;
+
 };
 
 

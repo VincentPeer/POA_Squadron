@@ -16,10 +16,18 @@ Carrier::Carrier(double weight, unsigned maxSpeed, double load, double maxLoad, 
 }
 
 unsigned Carrier::getConsumption(unsigned int distance, unsigned int speed) const {
-   return Ship::getConsumption(speed,distance, getWeight() + load);
+   return Ship::getConsumption(speed,distance,getWeight() + load);
 }
 
-double Carrier::getMaxLoad() const {
-   return MAX_LOAD;
+std::ostream &Carrier::toStream(ostream &os) const {
+   Ship::toStream(os);
+   os << " Cargo : " << load << " tons (max: " << MAX_LOAD << ")" << endl;
+   return os;
 }
+
+double Carrier::getTotalWeight() const {
+   return getWeight() + load;
+}
+
+
 

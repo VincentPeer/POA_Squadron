@@ -11,12 +11,14 @@ int main() {
    TIE blackTwo;
    Shuttle shuttle(23.4); // 23.4 tonnes de marchandises
    Squadron squad("Black Squadron");
+   Squadron squad2("Black Squadron");
    squad += blackLeader;
    squad += blackTwo;
    squad += shuttle;
    squad.setLeader(blackLeader);
    cout << squad << endl;
 
-   cout << "test" << endl;
+//   squad[1] = blackLeader;
+
    return EXIT_SUCCESS;
 }

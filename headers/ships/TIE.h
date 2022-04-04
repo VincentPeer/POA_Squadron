@@ -7,11 +7,7 @@
 
 #include "Ship.h"
 
-#define WEIGHT 360
-#define MAX_SPEED 54
-#define MODEL "TIE/LN"
 class TIE : public Ship {
-   unsigned getNum();
 public:
    TIE();
 };
