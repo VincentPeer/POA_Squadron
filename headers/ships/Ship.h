@@ -5,7 +5,7 @@
 #include <string>
 
 class Ship;
-std::ostream& operator << (std::ostream& os, const Ship& ship); //todo no usage
+std::ostream& operator << (std::ostream& os, const Ship& ship);
 
 /**
  * Abstract class representing an undefined ship

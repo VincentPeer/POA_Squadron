@@ -29,16 +29,3 @@ std::string Shuttle::getModel() const {
    return MODEL;
 }
 
-//Shuttle &Shuttle::operator=(const Ship &ship) { todo add
-//   if (this == &ship)
-//      return *this;
-//
-//   setNickname(ship.getNickname());
-//   setId(ship.getId());
-//
-//   // todo finish
-//
-//   return *this;
-//}
-
-

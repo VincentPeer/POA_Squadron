@@ -3,7 +3,6 @@
 #include <Shuttle.h>
 #include <Squadron.h>
 
-#include <vector> // todo remove
 #include <Destroyer.h>
 
 using namespace std;
