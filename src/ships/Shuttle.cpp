@@ -4,14 +4,41 @@
 
 #include "Shuttle.h"
 
-#define WEIGHT 360
-#define MAX_LOAD 80
-#define MAX_SPEED 54
-#define MODEL "Lambda-class shuttle"
+const double Shuttle::WEIGHT = 360;
+const double Shuttle::MAX_LOAD = 80;
+const unsigned Shuttle::MAX_SPEED = 54;
+const std::string Shuttle::MODEL =  "Lambda-class shuttle";
+unsigned Shuttle::NUM = 0;
 
-static unsigned num = 0;
-Shuttle::Shuttle(double load)
-   : Carrier(WEIGHT, MAX_SPEED, load, MAX_LOAD, makeModelId(MODEL, ++num)) {
+Shuttle::Shuttle(double load) : Carrier(load, MAX_LOAD, ++NUM) {
 }
+
+double Shuttle::getMaxLoad() const {
+   return MAX_LOAD;
+}
+
+double Shuttle::getWeight() const {
+   return WEIGHT;
+}
+
+unsigned Shuttle::getMaxSpeed() const {
+   return MAX_SPEED;
+}
+
+std::string Shuttle::getModel() const {
+   return MODEL;
+}
+
+//Shuttle &Shuttle::operator=(const Ship &ship) { todo add
+//   if (this == &ship)
+//      return *this;
+//
+//   setNickname(ship.getNickname());
+//   setId(ship.getId());
+//
+//   // todo finish
+//
+//   return *this;
+//}
 
 

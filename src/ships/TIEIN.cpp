@@ -4,9 +4,21 @@
 
 #include "TIEIN.h"
 
-#define WEIGHT 5
-#define MAX_SPEED 110
-#define MODEL "TIE/IN"
+const double TIEIN::WEIGHT = 5;
+const unsigned TIEIN::MAX_SPEED = 110;
+const std::string TIEIN::MODEL =  "TIE/IN";
+unsigned TIEIN::NUM = 0;
 
-static unsigned num = 0;
-TIEIN::TIEIN() : Ship(WEIGHT, MAX_SPEED, makeModelId(MODEL, ++num)) {}
+TIEIN::TIEIN() : Ship(++NUM) {}
+
+double TIEIN::getWeight() const {
+   return WEIGHT;
+}
+
+unsigned TIEIN::getMaxSpeed() const {
+   return MAX_SPEED;
+}
+
+std::string TIEIN::getModel() const {
+   return MODEL;
+}

@@ -3,10 +3,22 @@
 //
 #include "TIE.h"
 
-#define WEIGHT 6
-#define MAX_SPEED 100
-#define MODEL "TIE/LN"
+const double TIE::WEIGHT = 6;
+const unsigned TIE::MAX_SPEED = 100;
+const std::string TIE::MODEL =  "TIE/LN";
+unsigned TIE::NUM = 0;
 
-static unsigned num = 0;
-TIE::TIE() : Ship(WEIGHT, MAX_SPEED, makeModelId(MODEL, ++num)) {}
+TIE::TIE() : Ship(++NUM) {}
+
+double TIE::getWeight() const {
+   return WEIGHT;
+}
+
+unsigned TIE::getMaxSpeed() const {
+   return MAX_SPEED;
+}
+
+std::string TIE::getModel() const {
+   return MODEL;
+}
 

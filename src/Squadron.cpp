@@ -16,7 +16,7 @@ Squadron::Squadron(const Squadron &squadron) : Squadron(squadron.name){
 }
 
 Squadron::~Squadron() {
-   // Delete links of the list of ships
+   // Delete links of the ship list
    Link* l = ships;
    while (l->next != nullptr) {
       Link* tmp = l;
@@ -80,7 +80,7 @@ Squadron &Squadron::operator-=(const Ship &ship) {
 
 // Get ----------------------------------
 Ship &Squadron::get(size_t i) const {
-   const Link* l = ships;
+   Link* l = ships;
    for (size_t j = 0; j <= i; ++j) {
       if (l->next == nullptr)
          throw std::runtime_error("Argument out of range");
@@ -89,14 +89,17 @@ Ship &Squadron::get(size_t i) const {
    return *l->ship;
 }
 
-Ship &Squadron::operator[](size_t i) const {
+Ship& Squadron::operator[](size_t i) const{
    return get(i);
 }
 
-unsigned Squadron::getConsumption(unsigned int distance, unsigned int speed) const {
+double Squadron::getConsumption(unsigned speed, double distance) const {
+   if (speed == 0 || distance < 0)
+      throw invalid_argument("Speed must be greater than 0 and distance must be positive");
+
    if (speed > getMaxSpeed())
-      throw invalid_argument("Speed exceeds squad max speed");
-   unsigned consumed = 0;
+      throw invalid_argument("Speed exceeds squad's max speed");
+   double consumed = 0.;
    for (Link* l = ships; l->next != nullptr; l = l->next)
       consumed += l->next->ship->getConsumption(speed, distance);
    return consumed;
@@ -116,6 +119,10 @@ double Squadron::getTotalWeight() const {
    for (Link* l = ships; l->next != nullptr; l = l->next)
       weight += l->next->ship->getTotalWeight();
    return weight;
+}
+
+Ship& Squadron::getLeader() const{
+   return *leader;
 }
 
 // Set -----------------------------------
@@ -169,6 +176,8 @@ bool Squadron::isInList(const Ship *ship) {
    }
    return false;
 }
+
+
 
 
 

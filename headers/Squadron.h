@@ -10,12 +10,15 @@
 #include "ships/Ship.h"
 
 /**
- * This class represents a squad of ships
+ * This class represents a squadron of ships
+ * @author De Bleser Dimitri
+ * @author Peer Vincent
  */
 class Squadron {
+
    // Quick structure to store ships in a linked list
    struct Link {
-      Ship *ship;
+      Ship* ship;
       Link *next;
    };
 
@@ -51,7 +54,7 @@ public:
     Squadron(const Squadron& squadron);
 
     /**
-     * Destructor (destructing dynamic variables)
+     * Destructor (deletes dynamic variables)
      */
     ~Squadron();
 
@@ -88,13 +91,19 @@ public:
      * @param n the ship number to return
      * @return reference to a ship
      */
-     Ship& get(size_t n) const; // todo get sans const?
+     Ship& get(size_t n) const;
 
     /**
      * Set a new squad leader
      * @param leader
      */
     void setLeader(const Ship& leader);
+
+   /**
+    * Get squad leader
+    * @param leader
+    */
+   Ship& getLeader() const;
 
     /**
      * Remove the squad leader
@@ -107,7 +116,7 @@ public:
      * @param speed
      * @return fuel consomption in tons
      */
-    unsigned getConsumption(unsigned distance, unsigned speed) const;
+    double getConsumption(unsigned speed, double distance) const;
 
     /**
      * Get the max speed at witch the squad can go
@@ -164,6 +173,12 @@ public:
      */
     Ship& operator[](size_t n) const;
 
+    /**
+     * Friend function to write to stream
+     * @param os stream to write in
+     * @param squad squadron to write
+     * @return the given stream
+     */
     friend std::ostream& operator<<(std::ostream& os,const Squadron& squad);
 };
 

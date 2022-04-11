@@ -7,26 +7,32 @@
 
 using namespace std;
 
-Carrier::Carrier(double weight, unsigned maxSpeed, double load, double maxLoad, string modelId) :
-   Ship(weight, maxSpeed, modelId), load(load), MAX_LOAD(maxLoad) {
-
-  if (load > maxLoad)
-     throw invalid_argument("Exceeding max load");
-  this->load = load;
-}
-
-unsigned Carrier::getConsumption(unsigned int distance, unsigned int speed) const {
-   return Ship::getConsumption(speed,distance,getWeight() + load);
+Carrier::Carrier(double load, double maxload, unsigned num) : Ship(num){
+   if (load > maxload)
+      throw invalid_argument("Exceeding max load");
+   this->load = load;
 }
 
 std::ostream &Carrier::toStream(ostream &os) const {
    Ship::toStream(os);
-   os << " Cargo : " << load << " tons (max: " << MAX_LOAD << ")" << endl;
+   os << " Cargo : " << load << " tons (max: " << getMaxLoad() << ")" << endl;
    return os;
 }
 
 double Carrier::getTotalWeight() const {
    return getWeight() + load;
+}
+
+bool Carrier::setLoad(double load) {
+   if (load <= getMaxLoad()) {
+      this->load = load;
+      return true;
+   }
+   return false;
+}
+
+double Carrier::getLoad() const {
+   return load;
 }
 
 

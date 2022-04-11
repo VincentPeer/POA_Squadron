@@ -7,15 +7,57 @@
 
 #include "Ship.h"
 
+/**
+ *  Abstract class, adding loading capacity to Ship class
+ * @author De Bleser Dimitri
+ * @author Peer Vincent
+ */
 class Carrier : public Ship {
    double load;
-   const double MAX_LOAD;
+
+protected:
+
+   /**
+    * Constructor with load, maxLoad, and ID specifier
+    * @param load current load in metric tons
+    * @param maxLoad load capacity in tons
+    * @param num model ID number
+    */
+   explicit Carrier(double load, double maxLoad, unsigned num);
 
 public:
-   Carrier(double weight, unsigned maxSpeed, double load, double maxLoad, std::string modelId);
-   unsigned getConsumption(unsigned speed, unsigned distance) const override;
-   std::ostream& toStream(std::ostream& os) const; //todo virtual??
-   double getTotalWeight() const;
+
+   /**
+    * Write into am output stream
+    * @param os stream to write in
+    * @return The given stream
+    */
+   std::ostream& toStream(std::ostream& os) const override;
+
+   /**
+    * Get to total weight of the plane including load
+    * @return total weight in tons
+    */
+   double getTotalWeight() const override;
+
+   /**
+    * Get the ship's current load
+    * @return The load in tons
+    */
+   double getLoad() const;
+
+   /**
+    * set the current load of the ship
+    * @param load current load in metric tons
+    * @return True if the load is smaller or equal to max load and has been set
+    */
+   bool setLoad(double load);
+
+   /**
+    * Get the ship's load capacity
+    * @return load capacity in tons
+    */
+   virtual double getMaxLoad() const = 0;
 
 };
 
